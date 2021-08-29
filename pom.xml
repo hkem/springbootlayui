@@ -51,19 +51,12 @@
 			<groupId>org.springframework.session</groupId>
 			<artifactId>spring-session-data-redis</artifactId>
 		</dependency>
-<<<<<<< HEAD
-<!--redis-->
-=======
-		<!--redis-->
->>>>>>> 6bc4f3c... 第一个版本完成
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-redis</artifactId>
 		</dependency>
-<<<<<<< HEAD
 
-	</dependencies>
-=======
         <dependency>
             <groupId>org.xmlunit</groupId>
             <artifactId>xmlunit-core</artifactId>
@@ -95,7 +88,7 @@
 
 
     </dependencies>
->>>>>>> 6bc4f3c... 第一个版本完成
+
 
 	<build>
 		<plugins>
