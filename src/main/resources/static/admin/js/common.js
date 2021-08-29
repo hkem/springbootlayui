@@ -9,8 +9,6 @@
 //$(".admin_center_center").width(badywith - 220);
 //$(".admin_center_center").css("background-color","#ffffff");
 
-<<<<<<< HEAD
-=======
 layui.use(['form','layer','element','laypage'], function(){
     var form = layui.form;
     var layer = layui.layer;
@@ -261,4 +259,3 @@ layui.use(['form','layer','element','laypage'], function(){
 
 
 
->>>>>>> 6bc4f3c... 第一个版本完成
