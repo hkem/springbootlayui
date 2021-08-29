@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.mapper.AttestationAdminMapper">
+
+    <select id="oneattestationadmin" parameterType="com.example.demo.entity.AttestationAdmin" resultType="com.example.demo.entity.AttestationAdmin">
+        select * from attestation_admin where attestation_admin_id !=0
+        <if test="admin_id != 0">
+            and admin_id=#{admin_id}
+        </if>
+        <if test="attestation_admin_id != 0">
+            and attestation_admin_id=#{attestation_admin_id}
+        </if>
+        <if test="attestation_group_id != 0">
+            and attestation_group_id=#{attestation_group_id}
+        </if>
+        limit 1
+    </select>
+
+    <insert id="insertattestationadmin" parameterType="com.example.demo.entity.AttestationAdmin" useGeneratedKeys="true" keyProperty="attestation_admin_id">
+        insert into attestation_admin(attestation_group_id,admin_id,created_at,updated_at) value (#{attestation_group_id},#{admin_id},#{created_at},#{updated_at})
+    </insert>
+
+    <select id="allattestationadmin" parameterType="com.example.demo.entity.AttestationAdmin" resultType="com.example.demo.entity.AttestationAdmin">
+        select * from attestation_admin where attestation_admin_id !=0
+    </select>
+
+    <select id="oneupdateattestationadmin" parameterType="com.example.demo.entity.AttestationAdmin" resultType="com.example.demo.entity.AttestationAdmin">
+        select * from attestation_admin where attestation_admin_id !=0
+        <if test="admin_id != null">
+            and admin_id = #{admin_id}
+        </if>
+        <if test="attestation_admin_id != 0">
+            and attestation_admin_id != #{attestation_admin_id}
+        </if>
+        limit 1
+    </select>
+
+    <update id="updateattestationadmin" parameterType="com.example.demo.entity.AttestationAdmin">
+        update attestation_admin set updated_at=#{updated_at}
+        <if test="attestation_group_id != null">
+            ,attestation_group_id = #{attestation_group_id}
+        </if>
+        <if test="admin_id != null">
+            ,admin_id = #{admin_id}
+        </if>
+        where attestation_admin_id = #{attestation_admin_id}
+    </update>
+
+    <delete id="deleteattestationadmin" parameterType="com.example.demo.entity.AttestationAdmin">
+        delete from attestation_admin where attestation_admin_id in (#{attestation_admin_idstr})
+    </delete>
+</mapper>

@@ -1,0 +1,120 @@
+<div th:replace="../templates/admin/public/head::head"></div>
+<div class="layui-row page-body">
+    <div class="page-tab-content">
+        <div class="ayui-row searchrow">
+            <form class="layui-form" th:action="@{/admin/admin/index}">
+                <input th:value="${param.menulist1_id}" type="hidden" name="menulist1_id">
+                <input th:value="${param.menulist2_id}" type="hidden" name="menulist2_id">
+                <input th:value="${param.menulist3_id}" type="hidden" name="menulist3_id">
+                <div class="fromsearchli">
+                    <div class="searchtable">昵称：</div>
+                    <div class="searchinput">
+                        <input type="text" th:value="${param.admin_name} == null?'':${param.admin_name}" name="admin_name" autocomplete="off" placeholder="请输入" class="layui-input">
+                    </div>
+                </div>
+                <div class="fromsearchli">
+                    <div class="searchtable">账号：</div>
+                    <div class="searchinput">
+                        <input type="text" th:value="${param.admin_number} == null?'':${param.admin_number}" autocomplete="off" name="admin_number" placeholder="请输入标题" class="layui-input">
+                    </div>
+                </div>
+                <div class="fromsearchli">
+                    <div class="searchtable">状态：</div>
+                    <div class="searchinput">
+                        <select name="is_show" lay-verify="required" >
+                            <option value="0">请选择</option>
+                            <option value="1" th:selected="${param.is_show}+'' == 1">正常</option>
+                            <option value="2" th:selected="${param.is_show}+'' == 2">禁用</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="fromsearchli">
+                    <div class="searchtable"></div>
+                    <div class="searchinput">
+                        <button type="submit" class="layui-btn searchbutton" >查询</button>
+                    </div>
+                </div>
+                <div class="fromsearchli">
+                    <div class="searchtable"></div>
+                    <div class="searchinput">
+                        <a th:href="@{/admin/admin/index(menulist1_id=${param.menulist1_id},menulist2_id=${param.menulist2_id},menulist3_id=${param.menulist3_id})}" class="layui-btn layui-btn-danger">清空</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="ayui-row operationrow">
+            <a th:href="@{/admin/admin/insertview(menulist1_id=${param.menulist1_id},menulist2_id=${param.menulist2_id},menulist3_id=${param.menulist3_id})}" class="layui-btn operationbutton" >添加</a>
+            <button type="button" class="layui-btn operationbutton layui-btn-danger alldelete" th:data-url="@{/admin/admin/deleteadmin}">删除</button>
+        </div>
+        <div class="ayui-row tablerow layui-form">
+            <table class="layui-table">
+            <colgroup>
+                <col width="50">
+            </colgroup>
+            <thead>
+            <tr>
+                <th>
+                    <input type="checkbox" name="" lay-skin="primary" lay-filter="selectAll">
+                </th>
+                <th>序号</th>
+                <th>头像</th>
+                <th>昵称</th>
+                <th>账号</th>
+                <th>职位</th>
+                <th>状态</th>
+                <th>时间</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="admin,adminstart:${list}">
+                <td>
+                    <input type="checkbox" class="selectli" th:value="${admin.admin_id}" lay-skin="primary">
+                </td>
+                <td th:text="${admin.admin_id}"></td>
+                <td>
+                    <img width="50" height="50" th:src="${admin.admin_img}">
+                </td>
+                <td th:text="${admin.admin_name}"></td>
+                <td th:text="${admin.admin_number}"></td>
+                <td>
+                   <p th:if="${admin.is_default} == 1">超级管理员</p>
+                    <p th:if="${admin.is_default} != 1">管理员</p>
+                </td>
+                <td>
+                    <input type="checkbox" th:checked="${admin.is_show}+'' == 1" th:data-url="@{/admin/admin/updateisshow(id=${admin.admin_id})}" name="switch" lay-skin="switch"  lay-filter="checkboxcomm">
+                </td>
+                <td th:text="${admin.created_at}"></td>
+                <td>
+                    <a type="button" class="layui-btn  layui-btn-sm" th:href="@{/admin/admin/updateview(menulist1_id=${param.menulist1_id},menulist2_id=${param.menulist2_id},menulist3_id=${param.menulist3_id},id=${admin.admin_id})}">详情</a>
+                    <button type="button" class="layui-btn  layui-btn-sm layui-btn-danger onedelete" th:data-url="@{/admin/admin/deleteadmin(id=${admin.admin_id})}">删除</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        </div>
+        <div class="ayui-row pagerow">
+            <div id="pageview"></div>
+        </div>
+    </div>
+</div>
+<script>
+    layui.use(['form','layer','laypage'], function() {
+        var form = layui.form;
+        var layer = layui.layer;
+        var laypage = layui.laypage;
+
+
+    });
+
+
+
+</script>
+<!-- 底部 -->
+<div th:replace="../templates/admin/public/foot::foot"></div>
+
+
+
+
+
+

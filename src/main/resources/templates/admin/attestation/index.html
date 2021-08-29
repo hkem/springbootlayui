@@ -1,0 +1,159 @@
+<div th:replace="../templates/admin/public/head::head"></div>
+<div class="layui-row page-body">
+    <div class="page-tab-content">
+        <div class="ayui-row searchrow">
+            <form class="layui-form" th:action="@{/admin/attestation/index}">
+                <input th:value="${param.menulist1_id}" type="hidden" name="menulist1_id">
+                <input th:value="${param.menulist2_id}" type="hidden" name="menulist2_id">
+                <input th:value="${param.menulist3_id}" type="hidden" name="menulist3_id">
+                <div class="fromsearchli">
+                    <div class="searchtable">地址：</div>
+                    <div class="searchinput">
+                        <input type="text" th:value="${param.attestation_url} == null?'':${param.attestation_url}" name="attestation_url" autocomplete="off" placeholder="请输入" class="layui-input">
+                    </div>
+                </div>
+                <div class="fromsearchli">
+                    <div class="searchtable">名称：</div>
+                    <div class="searchinput">
+                        <input type="text" th:value="${param.attestation_name} == null?'':${param.attestation_name}" autocomplete="off" name="attestation_name" placeholder="请输入标题" class="layui-input">
+                    </div>
+                </div>
+                <div class="fromsearchli">
+                    <div class="searchtable"></div>
+                    <div class="searchinput">
+                        <button type="submit" class="layui-btn searchbutton" >查询</button>
+                    </div>
+                </div>
+                <div class="fromsearchli">
+                    <div class="searchtable"></div>
+                    <div class="searchinput">
+                        <a th:href="@{/admin/attestation/index(menulist1_id=${param.menulist1_id},menulist2_id=${param.menulist2_id},menulist3_id=${param.menulist3_id})}" class="layui-btn layui-btn-danger">清空</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="ayui-row operationrow">
+            <a th:href="@{/admin/attestation/insertview(menulist1_id=${param.menulist1_id},menulist2_id=${param.menulist2_id},menulist3_id=${param.menulist3_id})}" class="layui-btn operationbutton" >添加</a>
+            <button type="button" class="layui-btn operationbutton layui-btn-danger alldelete" th:data-url="@{/admin/attestation/deleteattestation}">删除</button>
+        </div>
+        <div class="ayui-row tablerow layui-form">
+            <table class="layui-table">
+                <colgroup>
+                    <col width="50">
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>
+                        <input type="checkbox" name="" lay-skin="primary" lay-filter="selectAll">
+                    </th>
+                    <th>序号</th>
+                    <th>名称</th>
+                    <th>地址</th>
+                    <th>是否菜单</th>
+                    <th>是否鉴权</th>
+                    <th>排序</th>
+                    <th>时间</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <div th:each="list,liststart:${listaa}">
+                    <tr>
+                        <td>
+                            <input type="checkbox" class="selectli" th:value="${list.attestation_id}" lay-skin="primary">
+                        </td>
+                        <td th:text="${list.attestation_id}"></td>
+                        <td th:text="${list.attestation_name}"></td>
+                        <td th:text="${list.attestation_url}"></td>
+
+                        <td>
+                            <input type="checkbox" th:checked="${list.is_menu}+'' == 1" th:data-url="@{/admin/attestation/updateismenu(id=${list.attestation_id})}" name="switch" lay-skin="switch"  lay-filter="checkboxcomm">
+                        </td>
+                        <td>
+                            <input type="checkbox" th:checked="${list.is_authentication}+'' == 1" th:data-url="@{/admin/attestation/updateisauthentication(id=${list.attestation_id})}" name="switch" lay-skin="switch"  lay-filter="checkboxcomm">
+                        </td>
+                        <td>
+                            <input type="text" th:value="${list.sort}" autocomplete="off" th:data-url="@{/admin/attestation/updateattestationsort(id=${list.attestation_id})}"  class="layui-input blurinput">
+                        </td>
+                        <td th:text="${list.created_at}"></td>
+                        <td>
+                            <a type="button" class="layui-btn  layui-btn-sm" th:href="@{/admin/attestation/updateview(menulist1_id=${param.menulist1_id},menulist2_id=${param.menulist2_id},menulist3_id=${param.menulist3_id},id=${list.attestation_id})}">详情</a>
+                            <button type="button" class="layui-btn  layui-btn-sm layui-btn-danger onedelete" th:data-url="@{/admin/attestation/deleteattestation(id=${list.attestation_id})}">删除</button>
+                        </td>
+                    </tr>
+                    <div th:each="list2,list2start:${list.parent2}">
+                        <tr>
+                            <td>
+                                <input type="checkbox" class="selectli" th:value="${list2.attestation_id}" lay-skin="primary">
+                            </td>
+                            <td th:text="${list2.attestation_id}"></td>
+                            <td th:text="${'————'+list2.attestation_name}"></td>
+                            <td th:text="${list2.attestation_url}"></td>
+
+                            <td>
+                                <input type="checkbox" th:checked="${list2.is_menu}+'' == 1" th:data-url="@{/admin/attestation/updateismenu(id=${list2.attestation_id})}" name="switch" lay-skin="switch"  lay-filter="checkboxcomm">
+                            </td>
+                            <td>
+                                <input type="checkbox" th:checked="${list2.is_authentication}+'' == 1" th:data-url="@{/admin/attestation/updateisauthentication(id=${list2.attestation_id})}" name="switch" lay-skin="switch"  lay-filter="checkboxcomm">
+                            </td>
+                            <td>
+                                <input type="text" th:value="${list2.sort}" autocomplete="off" th:data-url="@{/admin/attestation/updateattestationsort(id=${list2.attestation_id})}"  class="layui-input blurinput">
+                            </td>
+                            <td th:text="${list2.created_at}"></td>
+                            <td>
+                                <a type="button" class="layui-btn  layui-btn-sm" th:href="@{/admin/attestation/updateview(id=${list2.attestation_id})}">详情</a>
+                                <button type="button" class="layui-btn  layui-btn-sm layui-btn-danger onedelete" th:data-url="@{/admin/attestation/deleteattestation(id=${list2.attestation_id})}">删除</button>
+                            </td>
+                        </tr>
+                        <div th:each="list3,list3start:${list2.parent3}">
+                            <tr>
+                                <td>
+                                    <input type="checkbox" class="selectli" th:value="${list3.attestation_id}" lay-skin="primary">
+                                </td>
+                                <td th:text="${list3.attestation_id}"></td>
+                                <td th:text="${'————————'+list3.attestation_name}"></td>
+                                <td th:text="${list3.attestation_url}"></td>
+
+                                <td>
+                                    <input type="checkbox" th:checked="${list3.is_menu}+'' == 1" th:data-url="@{/admin/attestation/updateismenu(id=${list3.attestation_id})}" name="switch" lay-skin="switch"  lay-filter="checkboxcomm">
+                                </td>
+                                <td>
+                                    <input type="checkbox" th:checked="${list3.is_authentication}+'' == 1" th:data-url="@{/admin/attestation/updateisauthentication(id=${list3.attestation_id})}" name="switch" lay-skin="switch"  lay-filter="checkboxcomm">
+                                </td>
+                                <td>
+                                    <input type="text" th:value="${list3.sort}" autocomplete="off" th:data-url="@{/admin/attestation/updateattestationsort(id=${list3.attestation_id})}"  class="layui-input blurinput">
+                                </td>
+                                <td th:text="${list3.created_at}"></td>
+                                <td>
+                                    <a type="button" class="layui-btn  layui-btn-sm" th:href="@{/admin/attestation/updateview(id=${list3.attestation_id})}">详情</a>
+                                    <button type="button" class="layui-btn  layui-btn-sm layui-btn-danger onedelete" th:data-url="@{/admin/attestation/deleteattestation(id=${list3.attestation_id})}">删除</button>
+                                </td>
+                            </tr>
+                        </div>
+                    </div>
+                </div>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+    layui.use(['form','layer','laypage'], function() {
+        var form = layui.form;
+        var layer = layui.layer;
+        var laypage = layui.laypage;
+
+
+    });
+
+
+
+</script>
+<!-- 底部 -->
+<div th:replace="../templates/admin/public/foot::foot"></div>
+
+
+
+
+
+

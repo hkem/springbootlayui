@@ -1,0 +1,142 @@
+<div th:replace="../templates/admin/public/head::head"></div>
+<div class="layui-row page-body" xmlns:th="http://www.thymeleaf.org">
+    <style>
+        .layui-form-checkbox[lay-skin=primary]{
+            height: 0px !important;
+        }
+        .attestationcheckbox{
+            float: left !important;
+        }
+        .parent2{
+            float: left;
+            width: 100%;
+        }
+        .parent3{
+            float: left;
+
+        }
+        .attestationbzz{
+            line-height: 18px;
+            float: left;
+            margin-top: 8px;
+            padding: 0px 5px;
+        }
+        .formitemcomm{
+            width: 100% !important;
+        }
+    </style>
+    <div class="page-tab-content">
+        <div class="layui-row formrow">
+            <form class="layui-form" th:action="@{/admin/attestationgroup/attestationgroupupdatepost}" method="post">
+                <input th:value="${attestationgroup.attestation_group_id}" type="hidden" name="attestation_group_id">
+                <div class="layui-form-item" style="width: 500px">
+                    <label class="layui-form-label">名称：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="group_name" th:value="${attestationgroup.group_name}" required  lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item formitemcomm">
+                    <label class="layui-form-label">权限：</label>
+                    <div class="layui-input-block checkboxall">
+                        <div th:each="list,liststart:${attestationlist}">
+                            <div class="layui-row">
+                                <input type="checkbox" th:checked="${list.existence} == 1" th:value="${list.attestation_id}" class="attestationcheckbox" name="attestation_id[]" lay-skin="primary" th:title="${list.attestation_name}" >
+                            </div>
+                            <div class="layui-row">
+                                <div th:each="list2,list2start:${list.parent2}" class="parent2">
+                                    <div class="attestationbzz">
+                                        ——————
+                                    </div>
+                                    <input type="checkbox" th:checked="${list2.existence} == 1" th:value="${list2.attestation_id}" class="attestationcheckbox" name="attestation_id[]" lay-skin="primary" th:title="${list2.attestation_name}" >
+                                    <div class="layui-row">
+                                        <div class="attestationbzz" th:if="${list2.parent3.size()} > 0">
+                                            ——————————
+                                        </div>
+                                        <div th:each="list3,list3start:${list2.parent3}" class="parent3">
+                                            <input type="checkbox" th:checked="${list3.existence} == 1" th:value="${list3.attestation_id}" class="attestationcheckbox" name="attestation_id[]" lay-skin="primary" th:title="${list3.attestation_name}" >
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-form-item formitemcomm">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-submit lay-filter="formDemo22" data-operation="refresh" data-jumpurl="refresh">立即提交</button>
+                        <a href="javascript:;" type="layui-btn" class="layui-btn layui-btn-primary onReset">重置</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+<script>
+    layui.use(['form','layer','upload'], function(){
+        var form = layui.form;
+        var layer = layui.layer;
+        var upload = layui.upload;
+
+        //统一监听提交
+        var submitbool = true;
+        form.on('submit(formDemo22)', function(data){
+            var attestation_id = ""
+            var checkbox = $(".checkboxall input[type=checkbox]:checked");// 在table中找input下类型为checkbox属性为选中状态的数据
+            checkbox.each(function() {		// 遍历checkbox里的内容
+                attestation_id += $(this).val()+',';		// 根据this的表获取行
+            });
+            attestation_id = attestation_id.slice(0,attestation_id.length-1);
+            if(submitbool){
+                submitbool = false;
+                var formurl = data.form.action;
+                var fielddata = data.field;
+                var newfielddata = {group_name:fielddata.group_name,attestation_id:attestation_id,attestation_group_id:fielddata.attestation_group_id};
+                var operation = data.elem.dataset.operation;   //refresh 刷新 return 返回 jump 跳转
+                var jumpurl = data.elem.dataset.jumpurl;       //jump 跳转url
+                $.ajax({
+                    url: formurl,
+                    type: 'POST',
+                    contentType: 'application/json;charset=UTF-8',
+                    dataType:'json',
+                    data: JSON.stringify(newfielddata),
+                    success: function(res){
+                        if(res.code == 1){
+                            layer.msg(res.msg,function () {
+                                if(operation == "refresh"){
+                                    window.location.reload();
+                                }else if(operation == "return"){
+                                    window.history(-1);
+                                }else if(operation == "jump"){
+                                    window.location.href = jumpurl;
+                                }
+                                submitbool = true;
+                            })
+                        }else{
+                            submitbool = true;
+                            layer.msg(res.msg);
+                        }
+                    },
+                    error: function(){
+                        submitbool = true;
+                        layer.msg("ajax请求失败");
+                    }
+                })
+            }
+            return false;
+        });
+
+
+
+    });
+</script>
+<!-- 底部 -->
+<div th:replace="../templates/admin/public/foot::foot"></div>
+
+
+
+
+
+

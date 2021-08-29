@@ -1,0 +1,205 @@
+<<<<<<< HEAD
+=======
+/*整体框架css*/
+>>>>>>> 6bc4f3c... 第一个版本完成
+bady{
+  background-color: #f5f5f5;
+  margin: 0;
+  padding: 0;
+}
+.admin_admin{
+  min-width: 1000px;
+}
+.admin_header{
+  width: 100%;
+  position: fixed;
+  height: 60px;
+  background-color: #23262E;
+  z-index: 999999;
+}
+.admin_header .layui-nav{
+  background-color:#23262E;
+}
+.admin_header_left{
+  height: 60px;
+  float: left;
+  width: 200px;
+  color: #ffffff;
+  line-height: 60px;
+  font-size: 24px;
+  text-align: center;
+}
+.admin_header_center{
+  float: left;
+}
+.admin_header_user{
+  float: right;
+}
+
+.admin_center_leftnav{
+  position: fixed;
+  left: 0px;
+  width: 200px;
+  height: 100%;
+  top: 60px;
+  background-color: #23262E;
+  overflow:auto;
+  z-index: 999999;
+}
+
+.admin_center_leftnavsoul{
+  position: relative;
+  padding-bottom: 60px;
+}
+
+.admin_center_center{
+  position: fixed;
+  left: 200px;
+  top:60px;
+  overflow:auto;
+  bottom: 50px;
+  right: 0px;
+  background-color: #f5f5f5;
+}
+
+.admin_foot{
+  position: fixed;
+  width: 100%;
+  height: 50px;
+  bottom: 0px;
+  left: 200px;
+  background-color: #eee;
+}
+
+.admin_center_label{
+  width: 100%;
+  height: 44px;
+  background-color: #ffffff;
+
+}
+.admin_center_label ul{
+
+  height: 44px;
+  margin-left: 10px;
+
+}
+.admin_center_label ul li{
+  text-align: center;
+  padding: 0px 5px;
+  font-size: 14px;
+  color:#666;
+  float: left;
+  line-height: 44px;
+}
+
+.page-body{
+  margin: 8px;
+  background-color: #ffffff;
+}
+.page-tab-content{
+  padding: 8px;
+<<<<<<< HEAD
+}
+=======
+}
+
+
+
+/*列表页公共css*/
+.searchrow{
+  float: left;
+  width: 100%;
+}
+.tablerow{
+  float: left;
+  margin-top: 5px;
+  width: 100%;
+}
+.pagerow{
+  float: left;
+  width: 100%;
+}
+.operationrow{
+  float: left;
+  width: 100%;
+  margin-top: 10px;
+}
+.operationbutton{
+  float: left;
+  margin-right: 10px;
+}
+.fromsearchli{
+  float: left;
+  height: 40px;
+  margin-top: 5px;
+}
+.searchtable{
+  float: left;
+  padding: 0px 5px;
+  line-height: 38px;
+}
+.searchinput{
+  float: left;
+}
+.searchbutton{
+  margin-left: 10px;
+}
+
+
+
+
+
+/*添加修改页面公共css*/
+.formitemcomm{
+  width: 500px;
+}
+.formrow{
+
+}
+
+.layuiinputimg{
+  width: 200px;
+  float: left;
+}
+.layuibtnimg{
+  float: left;
+  width: 120px;
+}
+.layuiuploadli{
+  float: left;
+  width: 100%;
+}
+.layuiuploadli2{
+  float: left;
+  width: 150px;
+  margin-top: 5px;
+  position: relative;
+}
+.layuiuploadliclose{
+  position: absolute;
+  right: 5px;
+  top: 5px;
+}
+.layuiuploadliimg{
+  max-width: 150px;
+}
+
+.inputmsg{
+  font-size: 12px;
+}
+.blurinput{
+  width: 100px !important;
+}
+
+.formitemcomm{
+  /*width: 800px;*/
+}
+.formitemcomm .layui-form-label{
+  /*padding: 9px 50px !important;*/
+}
+.formitemcomm .layui-input-block{
+  /*margin-left: 180px;*/
+}
+
+
+>>>>>>> 6bc4f3c... 第一个版本完成

@@ -1,0 +1,106 @@
+<div th:replace="../templates/admin/public/head::head"></div>
+<div class="layui-row page-body" xmlns:th="http://www.thymeleaf.org">
+    <style>
+
+
+    </style>
+    <div class="page-tab-content">
+        <div class="layui-row formrow">
+            <form class="layui-form" th:action="@{/admin/admin/admininsertpost}" method="post">
+                <div class="layui-form-item formitemcomm">
+                    <label class="layui-form-label">头像:</label>
+                    <div class="layui-input-block">
+                        <div class="layuiuploadli">
+                            <input type="text" name="admin_img" disabled readonly placeholder=""  class="layui-input layuiinputimg layui-disabled admin_img">
+                            <button type="button" class="layui-btn layuibtnimg" id="one_uploadimage">
+                                <i class="layui-icon">&#xe67c;</i>上传图片
+                            </button>
+                        </div>
+                        <div class="layuiuploadli2" style="display: none">
+                            <div class="layuiuploadliclose">
+                                <img th:src="@{/admin/img/close.png}" width="20" height="20">
+                            </div>
+                            <img th:src="@{/admin/img/head2.jpg}" class="layuiuploadliimg">
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item formitemcomm">
+                    <label class="layui-form-label">昵称：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="admin_name" required  lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item formitemcomm">
+                    <label class="layui-form-label">账号：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="admin_number" required  lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item formitemcomm">
+                    <label class="layui-form-label">密码框</label>
+                    <div class="layui-input-block">
+                        <input type="password" name="admin_pass" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item formitemcomm">
+                    <label class="layui-form-label">是否禁用</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="is_show" value="2" title="是" >
+                        <input type="radio" name="is_show" value="1" title="否" checked>
+                    </div>
+                </div>
+                <div class="layui-form-item formitemcomm">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-submit lay-filter="formDemo" data-operation="refresh" data-jumpurl="refresh">立即提交</button>
+                        <a href="javascript:;" type="layui-btn" class="layui-btn layui-btn-primary onReset">重置</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+<script>
+    layui.use(['form','layer','upload'], function(){
+        var form = layui.form;
+        var layer = layui.layer;
+        var upload = layui.upload;
+
+        //执行实例
+        var uploadInst = upload.render({
+            elem: '#one_uploadimage' //绑定元素
+            ,url: '/admin/upload/uploadimage' //上传接口
+            ,accept:'images'
+            ,acceptMime: 'image/*'
+            ,exts: 'jpg|png|jpeg'
+            ,done: function(res){
+                var resdata = res.data;
+                //上传完毕回调
+                if(res.code == 1){
+                    $(".layuiuploadli2").show();
+                    $(".layuiuploadliimg").attr("src",resdata.filepath);
+                    $(".admin_img").val(resdata.filepath);
+                }else{
+                    layer.msg(res.msg);
+                }
+            }
+            ,error: function(){
+                //请求异常回调
+                layer.msg("上传异常");
+            }
+        });
+        $(".layuiuploadliclose").click(function () {
+            $(".layuiuploadli2").hide();
+            $(".layuiuploadli2 .layuiuploadliimg").attr("src","");
+            $(".admin_img").val("");
+        })
+    });
+</script>
+<!-- 底部 -->
+<div th:replace="../templates/admin/public/foot::foot"></div>
+
+
+
+
+
+

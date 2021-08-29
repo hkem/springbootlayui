@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<<<<<<< HEAD
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="js/layui-v2.6.8/layui/css/layui.css">
+    <link rel="stylesheet" href="css/common.css">
+    <script src="js/layui-v2.6.8/layui/layui.js"></script>
+    <script src="js/jquery/jquery-3.3.1.min.js"></script>
+
+    <style>
+      .moren{
+        width: 1px;
+        height: 1px;
+      }
+      .logindiv{
+        width: 250px;
+        height: 500px;
+        margin: 0 auto;
+        margin-top: 80%;
+=======
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/admin/js/layui-v2.6.8/layui/css/layui.css}" >
+    <link rel="stylesheet" th:href="@{/admin/css/common.css}" >
+    <script th:src="@{/admin/js/layui-v2.6.8/layui/layui.js}" ></script>
+    <script th:src="@{/admin/js/jquery/jquery-3.3.1.min.js}" ></script>
+    <style>
+     .adminlogin{
+         width: 100%;
+         height: 100vh;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+     }
+      .logindiv{
+        width: 250px;
+>>>>>>> 6bc4f3c... 第一个版本完成
+      }
+      .loginusertitle{
+        text-align: center;
+      }
+      .loginbutton{
+        width: 100%;
+        margin-top: 20px;
+      }
+      .loginuser{
+        width: 100%;
+        margin-top: 20px;
+      }
+    </style>
+</head>
+<body>
+<<<<<<< HEAD
+<div class="layui-container">
+    <div class="layui-row">
+        <div class="layui-col-md4">
+            <div class="moren"></div>
+        </div>
+        <div class="layui-col-md4">
+            <div class="logindiv">
+                <form class="layui-form" action="/admin/loginpost">
+                    <div class="loginusertitle"><h1>后台登录</h1></div>
+                    <div class="loginuser">
+                        <input type="text" name="username" id="username" required  lay-verify="required" placeholder="请输入账号" autocomplete="off" class="layui-input">
+                    </div>
+                    <div class="loginuser">
+                        <input type="text" name="pass" id="pass" required  lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                    </div>
+                    <button type="submit" class="layui-btn loginbutton" lay-submit lay-filter="formDemo">登录</button>
+                </form>
+            </div>
+        </div>
+        <div class="layui-col-md4">
+            <div class="moren"></div>
+        </div>
+=======
+<div class="adminlogin">
+    <div class="logindiv">
+        <form class="layui-form" action="">
+            <div class="loginusertitle"><h1>后台登录</h1></div>
+            <div class="loginuser">
+                <input type="text" name="admin_number"  id="admin_number" required  lay-verify="required" placeholder="请输入账号" autocomplete="off" class="layui-input">
+            </div>
+            <div class="loginuser">
+                <input type="password" name="admin_pass"  id="admin_pass" required  lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+            </div>
+            <button type="submit" class="layui-btn loginbutton" lay-submit lay-filter="formDemo">登录</button>
+        </form>
+>>>>>>> 6bc4f3c... 第一个版本完成
+    </div>
+</div>
+<script>
+layui.use('form', function(){
+  var form = layui.form;
+<<<<<<< HEAD
+
+  //监听提交
+  form.on('submit(formDemo)', function(data){
+    var username = $("#username").val();
+    var pass = $("#pass").val();
+    if(username == ""){
+      layer.msg("账号不能为空");
+      return;
+    }
+    if(pass == ""){
+=======
+  //监听提交
+  form.on('submit(formDemo)', function(data){
+    var admin_number = $("#admin_number").val();
+    var admin_pass = $("#admin_pass").val();
+    if(admin_number == ""){
+      layer.msg("账号不能为空");
+      return;
+    }
+    if(admin_pass == ""){
+>>>>>>> 6bc4f3c... 第一个版本完成
+      layer.msg("密码不能为空");
+      return;
+    }
+    $.ajax({
+        url: '/admin/loginpost',
+<<<<<<< HEAD
+        data: {username:username,pass:pass},
+        success: function (res) {
+            console.log(res);
+        }
+    });
+
+    return false;
+  });
+});
+
+
+
+=======
+        data: {admin_number:admin_number,admin_pass:admin_pass},
+        success: function (res) {
+            if(res.code == 1){
+                layer.msg(res.msg,function () {
+                    window.location.href="/admin/index/index";
+                })
+            }else{
+                layer.msg(res.msg);
+            }
+        },
+        error: function(){
+            layer.msg("ajax请求失败");
+        }
+    });
+    return false;
+  });
+});
+>>>>>>> 6bc4f3c... 第一个版本完成
+</script>
+</body>
+</html>

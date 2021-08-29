@@ -1,0 +1,63 @@
+
+<body th:fragment="head" xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/admin/js/layui-v2.6.8/layui/css/layui.css}" href="layui.css">
+    <link rel="stylesheet" th:href="@{/admin/css/common.css}" href="common.css">
+    <script th:src="@{/admin/js/layui-v2.6.8/layui/layui.js}" src="layui.js"></script>
+    <script th:src="@{/admin/js/jquery/jquery-3.3.1.min.js}" src="jquery-3.3.1.min.js"></script>
+</head>
+<body>
+<!-- 头部 -->
+<div class="admin_header">
+    <div class="admin_header_left">后台管理</div>
+    <ul class="layui-nav admin_header_center" lay-filter="">
+        <li class="layui-nav-item"   th:each="menulist1list,menulist1start:${menulist1}" th:classappend="${param.menulist1_id}+'' == ${menulist1list.attestation_id}+'' ? 'layui-this':''"><a th:href="@{${menulist1list.attestation_url}(menulist1_id=${menulist1list.attestation_id})}" th:text="${menulist1list.attestation_name}">最新活动</a></li>
+    </ul>
+    <ul class="layui-nav admin_header_user" lay-filter="">
+        <li class="layui-nav-item">
+            <a href="javascript:;" th:text="${admindata.admin_name}"></a>
+            <dl class="layui-nav-child"> <!-- 二级菜单 -->
+                <dd><a href="javascript:;" class="loginout" th:data-url="@{/admin/loginoutpost}">退出</a></dd>
+            </dl>
+        </li>
+    </ul>
+</div>
+<!-- 侧边栏  -->
+<div class="admin_center_leftnav">
+    <div class="admin_center_leftnavsoul">
+        <ul class="layui-nav layui-nav-tree" lay-filter="test">
+            <!-- 侧边导航: <ul class="layui-nav layui-nav-tree layui-nav-side"> -->
+            <li th:each="menulist2list,menulist2start:${menulist2}" th:with="parent2_id=${menulist2list.parent_id}" class="layui-nav-item" th:classappend="${param.menulist2_id}+'' == ${menulist2list.attestation_id}+''?'layui-nav-itemed':''">
+                <a href="javascript:;" th:text="${menulist2list.attestation_name}">默认展开</a>
+                <dl class="layui-nav-child">
+                    <dd th:each="menulist3list,menulist3start:${menulist2list.parent3}"><a th:href="@{${menulist3list.attestation_url}(menulist1_id=${parent2_id},menulist2_id=${menulist2list.attestation_id},menulist3_id=${menulist3list.attestation_id})}" th:text="${menulist3list.attestation_name}" th:classappend="${param.menulist3_id}+'' == ${menulist3list.attestation_id}+''?'layui-this':''"></a></dd>
+                </dl>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="admin_center_center">
+    <div class="layui-row">
+        <div class="admin_center_label">
+            <ul>
+                <div th:if="${menubale.menulist1_name} != ''">
+                    <li th:text="${menubale.menulist1_name}"></li>
+                    <li>></li>
+                </div>
+                <div th:if="${menubale.menulist2_name} != ''">
+                    <li th:text="${menubale.menulist2_name}"></li>
+                    <li>></li>
+                </div>
+                <div th:if="${menubale.menulist3_name} != ''">
+                    <li th:text="${menubale.menulist3_name}"></li>
+
+                </div>
+
+            </ul>
+        </div>
+</body>

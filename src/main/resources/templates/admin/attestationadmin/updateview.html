@@ -1,0 +1,57 @@
+<div th:replace="../templates/admin/public/head::head"></div>
+<div class="layui-row page-body" xmlns:th="http://www.thymeleaf.org">
+    <style>
+
+
+    </style>
+    <div class="page-tab-content">
+        <div class="layui-row formrow">
+            <form class="layui-form" th:action="@{/admin/attestationadmin/attestationadminupdatepost}" method="post">
+                <input name="attestation_admin_id" type="hidden" th:value="${attestationadminlist.attestation_admin_id}">
+                <div class="layui-form-item formitemcomm">
+                    <label class="layui-form-label">管理员</label>
+                    <div class="layui-input-block">
+                        <select name="admin_id" lay-verify="required" disabled>
+                            <div th:each="list,liststart:${adminlist}">
+                                <option th:selected="${attestationadminlist.admin_id} == ${list.admin_id}" th:value="${list.admin_id}"  th:text="${list.admin_name}"></option>
+                            </div>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item formitemcomm">
+                    <label class="layui-form-label">权限组</label>
+                    <div class="layui-input-block">
+                        <select name="attestation_group_id" lay-verify="required">
+                            <div th:each="list2,list2start:${groups}">
+                                <option th:selected="${attestationadminlist.attestation_group_id} == ${list2.attestation_group_id}" th:value="${list2.attestation_group_id}"  th:text="${list2.group_name}"></option>
+                            </div>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item formitemcomm">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-submit lay-filter="formDemo" data-operation="refresh" data-jumpurl="refresh">立即提交</button>
+                        <a href="javascript:;" type="layui-btn" class="layui-btn layui-btn-primary onReset">重置</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+<script>
+    layui.use(['form','layer','upload'], function(){
+        var form = layui.form;
+        var layer = layui.layer;
+        var upload = layui.upload;
+
+    });
+</script>
+<!-- 底部 -->
+<div th:replace="../templates/admin/public/foot::foot"></div>
+
+
+
+
+
+

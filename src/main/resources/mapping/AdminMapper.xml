@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.mapper.AdminMapper">
+
+
+    <insert id="insertadmin" parameterType="com.example.demo.entity.Admin" useGeneratedKeys="true" keyProperty="admin_id">
+        insert into admin(admin_img,admin_name,created_at,updated_at,admin_pass,admin_number,is_show) value (#{admin_img},#{admin_name},#{created_at},#{updated_at},#{admin_pass},#{admin_number},#{is_show})
+    </insert>
+
+
+
+    <select id="loginadmin" parameterType="com.example.demo.entity.Admin" resultType="com.example.demo.entity.Admin">
+        select * from admin where is_delete = 1
+        <if test="admin_number != null">
+            and admin_number = #{admin_number}
+        </if>
+        <if test="admin_id != 0">
+            and admin_id = #{admin_id}
+        </if>
+        limit 1
+    </select>
+
+
+    <select id="oneselectadmin" parameterType="com.example.demo.entity.Admin" resultType="com.example.demo.entity.Admin">
+        select * from admin where is_delete = 1
+        <if test="admin_number != null">
+            and admin_number = #{admin_number}
+        </if>
+        <if test="admin_id != 0">
+            and admin_id = #{admin_id}
+        </if>
+        limit 1
+    </select>
+
+    <select id="allselectadmin" parameterType="com.example.demo.entity.Admin" resultType="com.example.demo.entity.Admin">
+        select * from admin where is_delete = #{is_delete}
+        <if test="admin_number != null and admin_number != ''">
+            and admin_number = #{admin_number}
+        </if>
+        <if test="admin_name != null and admin_name != ''">
+            and admin_name = #{admin_name}
+        </if>
+        <if test="is_show != 0">
+            and is_show = #{is_show}
+        </if>
+        limit #{pages},#{pagecount}
+    </select>
+
+    <update id="updateadmin" parameterType="com.example.demo.entity.Admin">
+        update admin set updated_at=#{updated_at}
+        <if test="admin_img != null">
+            ,admin_img=#{admin_img}
+        </if>
+        <if test="admin_name != null">
+            ,admin_name=#{admin_name}
+        </if>
+        <if test="admin_pass != null">
+            ,admin_pass=#{admin_pass}
+        </if>
+        <if test="admin_number != null">
+            ,admin_number=#{admin_number}
+        </if>
+        <if test="is_show != 0">
+            ,is_show=#{is_show}
+        </if>
+        where admin_id=#{admin_id}
+    </update>
+
+    <update id="deleteadmin" parameterType="com.example.demo.entity.Admin">
+        update admin set updated_at=#{updated_at}
+        <if test="is_delete != null">
+            ,is_delete=#{is_delete}
+        </if>
+        where admin_id in (#{admin_idstr})
+    </update>
+
+    <select id="getlistcount" parameterType="com.example.demo.entity.Admin" resultType="com.example.demo.entity.Admin">
+        select count(*) as listcount from admin where is_delete = #{is_delete}
+        <if test="admin_number != null and admin_number != ''">
+            and admin_number = #{admin_number}
+        </if>
+        <if test="admin_name != null and admin_name != ''">
+            and admin_name = #{admin_name}
+        </if>
+        <if test="is_show != 0">
+            and is_show = #{is_show}
+        </if>
+    </select>
+
+    <select id="updateselectadmin" parameterType="com.example.demo.entity.Admin" resultType="com.example.demo.entity.Admin">
+        select * from admin where is_delete = 1
+        <if test="admin_number != null">
+            and admin_number = #{admin_number}
+        </if>
+        and admin_id != #{admin_id} limit 1
+    </select>
+
+    <select id="getadmin" parameterType="com.example.demo.entity.Admin" resultType="com.example.demo.entity.Admin">
+        select * from admin where is_default!=1
+    </select>
+
+</mapper>

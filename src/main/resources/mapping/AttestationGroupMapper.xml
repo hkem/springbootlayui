@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.mapper.AttestationGroupMapper">
+
+    <select id="oneattestationgroup" parameterType="com.example.demo.entity.AttestationGroup" resultType="com.example.demo.entity.AttestationGroup">
+        select * from attestation_group where attestation_group_id != 0
+        <if test="attestation_group_id != 0">
+            and attestation_group_id=#{attestation_group_id}
+        </if>
+        <if test="group_name != null">
+            and group_name=#{group_name}
+        </if>
+        limit 1
+    </select>
+
+    <insert id="insertattestationgroup" parameterType="com.example.demo.entity.AttestationGroup" keyProperty="attestation_group_id" useGeneratedKeys="true">
+        insert into attestation_group (group_name,attestation_id,created_at,updated_at) value (#{group_name},#{attestation_id},#{created_at},#{updated_at});
+    </insert>
+
+    <select id="allattestationgroup" parameterType="com.example.demo.entity.AttestationGroup" resultType="com.example.demo.entity.AttestationGroup">
+        select * from attestation_group
+    </select>
+
+    <select id="oneupdateattestationgroup" parameterType="com.example.demo.entity.AttestationGroup" resultType="com.example.demo.entity.AttestationGroup">
+        select * from attestation_group where attestation_group_id != 0
+        <if test="attestation_group_id != 0">
+            and attestation_group_id != #{attestation_group_id}
+        </if>
+        <if test="group_name != null">
+            and group_name=#{group_name}
+        </if>
+        limit 1
+    </select>
+
+    <update id="updateattestationgroup" parameterType="com.example.demo.entity.AttestationGroup">
+        update attestation_group set updated_at=#{updated_at}
+        <if test="group_name != null">
+            ,group_name=#{group_name}
+        </if>
+        <if test="attestation_id != null">
+            ,attestation_id=#{attestation_id}
+        </if>
+        where attestation_group_id=#{attestation_group_id}
+    </update>
+
+    <delete id="deleteattestationgroup" parameterType="com.example.demo.entity.AttestationGroup">
+        delete from attestation_group where attestation_group_id in (#{attestation_group_idstr})
+    </delete>
+</mapper>

@@ -1,0 +1,91 @@
+<div th:replace="../templates/admin/public/head::head"></div>
+<div class="layui-row page-body" xmlns:th="http://www.thymeleaf.org">
+    <style>
+
+
+    </style>
+    <div class="page-tab-content">
+        <div class="layui-row formrow">
+            <form class="layui-form" th:action="@{/admin/attestation/attestationupdatepost}" method="post">
+                <input th:value="${updatelist.attestation_id}" type="hidden" name="attestation_id">
+                <div class="layui-form-item formitemcomm">
+                    <label class="layui-form-label">分类</label>
+                    <div class="layui-input-block">
+                        <select name="parent_id" lay-verify="required">
+                            <option value="0" th:selected="${updatelist.parent_id}+'' == 0">顶级菜单</option>
+                            <div th:each="list,liststart:${parentlist}">
+                                <option th:value="${list.attestation_id}" th:selected="${updatelist.parent_id} == ${list.attestation_id}" th:text="${list.attestation_name}"></option>
+                                <div th:each="list2,list2start:${list.parent2}">
+                                    <option th:value="${list2.attestation_id}" th:selected="${updatelist.parent_id} == ${list2.attestation_id}" th:text="'——————'+${list2.attestation_name}" ></option>
+                                </div>
+                            </div>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="layui-form-item formitemcomm">
+                    <label class="layui-form-label">地址：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="attestation_url" th:value="${updatelist.attestation_url}" required  lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item formitemcomm">
+                    <label class="layui-form-label">名称：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="attestation_name" th:value="${updatelist.attestation_name}" required  lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item formitemcomm">
+                    <label class="layui-form-label">排序：</label>
+                    <div class="layui-input-block">
+                        <input  name="sort" th:value="${updatelist.sort}" type="number" value="100" required  lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item formitemcomm">
+                    <label class="layui-form-label">是否菜单</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="is_menu" th:checked="${updatelist.is_menu} + '' == 1" value="1" title="是" >
+                        <input type="radio" name="is_menu" th:checked="${updatelist.is_menu} + '' == 2" value="2" title="否" >
+                    </div>
+                </div>
+                <div class="layui-form-item formitemcomm">
+                    <label class="layui-form-label">是否鉴权</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="is_authentication" th:checked="${updatelist.is_authentication} + '' == 1" value="1" title="是" >
+                        <input type="radio" name="is_authentication" th:checked="${updatelist.is_authentication} + '' == 2" value="2" title="否" >
+                    </div>
+                </div>
+                <div class="layui-form-item formitemcomm">
+                    <label class="layui-form-label">是否接口</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="request_type" th:checked="${updatelist.request_type} + '' == 1" value="1" title="接口" >
+                        <input type="radio" name="request_type" th:checked="${updatelist.request_type} + '' == 2" value="2" title="页面">
+                    </div>
+                </div>
+                <div class="layui-form-item formitemcomm">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-submit lay-filter="formDemo" data-operation="refresh" data-jumpurl="refresh">立即提交</button>
+                        <a href="javascript:;" type="layui-btn" class="layui-btn layui-btn-primary onReset">重置</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+<script>
+    layui.use(['form','layer','upload'], function(){
+        var form = layui.form;
+        var layer = layui.layer;
+        var upload = layui.upload;
+
+    });
+</script>
+<!-- 底部 -->
+<div th:replace="../templates/admin/public/foot::foot"></div>
+
+
+
+
+
+

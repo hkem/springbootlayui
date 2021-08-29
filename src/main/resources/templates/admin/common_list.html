@@ -1,0 +1,191 @@
+<div th:replace="../templates/admin/public/head::head"></div>
+<div class="layui-row page-body">
+    <div class="page-tab-content">
+        <div class="ayui-row searchrow">
+            <form class="layui-form" action="">
+                <div class="fromsearchli">
+                    <div class="searchtable">名称：</div>
+                    <div class="searchinput">
+                        <input type="text" name="title" placeholder="请输入标题" class="layui-input">
+                    </div>
+                </div>
+                <div class="fromsearchli">
+                    <div class="searchtable">名称：</div>
+                    <div class="searchinput">
+                        <input type="text" name="title" placeholder="请输入标题" class="layui-input">
+                    </div>
+                </div>
+                <div class="fromsearchli">
+                    <div class="searchtable">名称：</div>
+                    <div class="searchinput">
+                        <input type="text" name="title" placeholder="请输入标题" class="layui-input">
+                    </div>
+                </div>
+                <div class="fromsearchli">
+                    <div class="searchtable">状态：</div>
+                    <div class="searchinput">
+                        <select name="city" lay-verify="required">
+                            <option value=""></option>
+                            <option value="0">北京</option>
+                            <option value="1">上海</option>
+                            <option value="2">广州</option>
+                            <option value="3">深圳</option>
+                            <option value="4">杭州</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="fromsearchli">
+                    <div class="searchtable"></div>
+                    <div class="searchinput">
+                        <button type="submit" class="layui-btn searchbutton" >查询</button>
+                    </div>
+                </div>
+                <div class="fromsearchli">
+                    <div class="searchtable"></div>
+                    <div class="searchinput">
+                        <a href="" class="layui-btn layui-btn-danger">清空</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="ayui-row operationrow">
+            <button type="submit" class="layui-btn operationbutton" >添加</button>
+            <button type="submit" class="layui-btn operationbutton layui-btn-danger" >删除</button>
+        </div>
+        <div class="ayui-row tablerow">
+            <table class="layui-table">
+                <colgroup>
+                    <col width="50">
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>
+                        <input type="checkbox" name="" class="selectAll" lay-skin="primary">
+                    </th>
+                    <th>人物</th>
+                    <th>民族</th>
+                    <th>出场时间</th>
+                    <th>格言</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>
+                        <input type="checkbox" class="selectli" name="" lay-skin="primary">
+                    </td>
+                    <td>贤心</td>
+                    <td>汉族</td>
+                    <td>1989-10-14</td>
+                    <td>人生似修行</td>
+                    <td>
+                        <button type="submit" class="layui-btn  layui-btn-sm" >详情</button>
+                        <button type="submit" class="layui-btn  layui-btn-sm layui-btn-danger" >删除</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="checkbox" class="selectli" name="" lay-skin="primary">
+                    </td>
+                    <td>贤心</td>
+                    <td>汉族</td>
+                    <td>1989-10-14</td>
+                    <td>人生似修行</td>
+                    <td>
+                        <button type="submit" class="layui-btn  layui-btn-sm" >详情</button>
+                        <button type="submit" class="layui-btn  layui-btn-sm layui-btn-danger" >删除</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="checkbox" class="selectli" name="" lay-skin="primary">
+                    </td>
+                    <td>贤心</td>
+                    <td>汉族</td>
+                    <td>1989-10-14</td>
+                    <td>人生似修行</td>
+                    <td>
+                        <button type="submit" class="layui-btn  layui-btn-sm" >详情</button>
+                        <button type="submit" class="layui-btn  layui-btn-sm layui-btn-danger" >删除</button>
+                    </td>
+                </tr>
+
+
+                </tbody>
+            </table>
+        </div>
+        <div class="ayui-row pagerow">
+            <div id="test1"></div>
+        </div>
+    </div>
+</div>
+<script>
+
+    $(".selectAll").click(function () {
+        //id=all是全选/反选的checkbox，判断是选中还是没选中
+        var isChecked=$(".selectAll").is(':checked');
+        //获取所有checkbox组成的数组
+        var checkedArrs=$("input[class='selectli']:checked");
+        //判断是全选还是反选
+        if(isChecked){
+            $("input[class='selectli']").each(function(){
+                $(this).prop('checked',true);
+            });
+        }else{
+            $("input[class='selectli']").each(function(){
+                $(this).prop('checked',false);
+            });
+        }
+    });
+
+
+
+
+    //注意：导航 依赖 element 模块，否则无法进行功能性操作
+    layui.use('element', function(){
+        var element = layui.element;
+
+        //…
+    });
+    layui.use('form', function(){
+        var form = layui.form;
+
+        //监听提交
+        form.on('submit(formDemo)', function(data){
+            layer.msg(JSON.stringify(data.field));
+            return false;
+        });
+    });
+
+    layui.use('laypage', function(){
+        var laypage = layui.laypage;
+
+        //执行一个laypage实例
+        laypage.render({
+            elem: 'test1' //注意，这里的 test1 是 ID，不用加 # 号
+            ,count: 50 //数据总数，从服务端得到
+            ,limit:30
+            ,curr: 2//获取起始页
+            ,hash: false//自定义hash值
+            ,jump: function(obj, first){
+                //obj包含了当前分页的所有参数，比如：
+                console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+                console.log(obj.limit); //得到每页显示的条数
+
+                //首次不执行
+                if(!first){
+                    //do something
+                }
+            }
+        });
+    });
+
+</script>
+<!-- 底部 -->
+<div th:replace="../templates/admin/public/foot::foot"></div>
+
+
+
+
+
+

@@ -1,0 +1,66 @@
+<div th:replace="../templates/admin/public/head::head"></div>
+<div class="layui-row page-body">
+    <div class="page-tab-content">
+        <div class="ayui-row searchrow">
+
+        </div>
+        <div class="ayui-row operationrow">
+            <a th:href="@{/admin/attestationgroup/insertview(menulist1_id=${param.menulist1_id},menulist2_id=${param.menulist2_id},menulist3_id=${param.menulist3_id})}" class="layui-btn operationbutton" >添加</a>
+            <button type="button" class="layui-btn operationbutton layui-btn-danger alldelete" th:data-url="@{/admin/attestationgroup/deleteattestationgroup}">删除</button>
+        </div>
+        <div class="ayui-row tablerow layui-form">
+            <table class="layui-table">
+                <colgroup>
+                    <col width="50">
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>
+                        <input type="checkbox" name="" lay-skin="primary" lay-filter="selectAll">
+                    </th>
+                    <th>序号</th>
+                    <th>名称</th>
+                    <th>时间</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <div th:each="list,liststart:${attestationgrouplist}">
+                    <tr>
+                        <td>
+                            <input type="checkbox" class="selectli" th:value="${list.attestation_group_id}" lay-skin="primary">
+                        </td>
+                        <td th:text="${list.attestation_group_id}"></td>
+                        <td th:text="${list.group_name}"></td>
+                        <td th:text="${list.created_at}"></td>
+                        <td>
+                            <a type="button" class="layui-btn  layui-btn-sm" th:href="@{/admin/attestationgroup/updateview(menulist1_id=${param.menulist1_id},menulist2_id=${param.menulist2_id},menulist3_id=${param.menulist3_id},id=${list.attestation_group_id})}">详情</a>
+                            <button type="button" class="layui-btn  layui-btn-sm layui-btn-danger onedelete" th:data-url="@{/admin/attestationgroup/deleteattestationgroup(id=${list.attestation_group_id})}">删除</button>
+                        </td>
+                    </tr>
+                </div>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+    layui.use(['form','layer','laypage'], function() {
+        var form = layui.form;
+        var layer = layui.layer;
+        var laypage = layui.laypage;
+
+
+    });
+
+
+
+</script>
+<!-- 底部 -->
+<div th:replace="../templates/admin/public/foot::foot"></div>
+
+
+
+
+
+
